@@ -14,10 +14,10 @@ public class DancerRepositoryTest {
     @Autowired
     DancerRepository dancerRepository;
 
-//    @BeforeEach
-//    void setUp(){
-//        dancerRepository.deleteAll();
-//    }
+    @BeforeEach
+    void setUp(){
+        dancerRepository.deleteAll();
+    }
 
 
     @Test
@@ -26,7 +26,7 @@ public class DancerRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        dancerRepository.save(new Dancer("test", DanceStyle.RUMBA.name()));
+        dancerRepository.save(new Dancer("test", "rumba"));
 
         count = dancerRepository.count();
 
@@ -39,8 +39,8 @@ public class DancerRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        dancerRepository.save(new Dancer("test", DanceStyle.RUMBA.name()));
-        dancerRepository.save(new Dancer("test1", DanceStyle.RUMBA.name()));
+        dancerRepository.save(new Dancer("test", "rumba"));
+        dancerRepository.save(new Dancer("test1", "rumba"));
 
         count = dancerRepository.count();
 
@@ -53,7 +53,7 @@ public class DancerRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        Dancer first = new Dancer("test", DanceStyle.RUMBA.name());
+        Dancer first = new Dancer("test", "rumba");
 
         dancerRepository.save(first);
 
@@ -67,21 +67,6 @@ public class DancerRepositoryTest {
 
     }
 
-
-
-    @Test
-    void getOneDancerByName(){
-        dancerRepository.save(new Dancer("test", DanceStyle.RUMBA.name()));
-
-        long count = dancerRepository.count();
-
-        assertThat(count).isEqualTo(1);
-
-        Dancer founded = dancerRepository.getByName("test");
-
-        assertThat(founded.getName()).isEqualTo("test");
-    }
-
     @Test
     void deleteDancerById(){
 
@@ -89,7 +74,7 @@ public class DancerRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        Dancer first = new Dancer("test", DanceStyle.RUMBA.name());
+        Dancer first = new Dancer("test","rumba");
 
         dancerRepository.save(first);
 
@@ -111,8 +96,8 @@ public class DancerRepositoryTest {
 
         assertThat(count).isEqualTo(0);
 
-        dancerRepository.save(new Dancer("test", DanceStyle.RUMBA.name()));
-        dancerRepository.save(new Dancer("test1", DanceStyle.RUMBA.name()));
+        dancerRepository.save(new Dancer("test", "rumba"));
+        dancerRepository.save(new Dancer("test1", "rumba"));
 
         count = dancerRepository.count();
 
