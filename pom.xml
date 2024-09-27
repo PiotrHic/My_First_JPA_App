@@ -87,6 +87,13 @@
             <version>5.12.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!--Testcontainers Rest-Assured-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
