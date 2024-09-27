@@ -1,0 +1,8 @@
+Scenario:
+
+- I am creating an application (Spring Boot)
+- I use the application layers architecture
+- I connect it to a database (MySQL, H2 for testing)
+- I test the application (JUNIT5, Mockito, Testcontainers)
+- I use a JPA REpository (Spring Data JPA)
+- I dockerise the application (Docker)
