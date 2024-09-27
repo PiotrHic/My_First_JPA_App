@@ -1,4 +1,4 @@
-package com.example.my_first_jpa_app;
+package com.example.my_first_jpa_app.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
