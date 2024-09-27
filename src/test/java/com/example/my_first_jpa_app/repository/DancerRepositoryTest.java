@@ -20,9 +20,6 @@ public class DancerRepositoryTest {
 //    }
 
 
-
-
-
     @Test
     void createDancer(){
         long count = dancerRepository.count();
