@@ -1,5 +1,4 @@
 Scenario:
-
 - I am creating an application (Spring Boot)
 - I use the application layers architecture
 - I connect it to a database (MySQL, H2 for testing)
