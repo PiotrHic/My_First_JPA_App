@@ -10,7 +10,7 @@ public class DancerTest {
 
     @BeforeEach
     void setup(){
-
+        dancer = new Dancer("John","Tango");
     }
 
     @Test
