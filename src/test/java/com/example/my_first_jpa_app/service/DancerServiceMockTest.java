@@ -31,11 +31,11 @@ public class DancerServiceMockTest {
     @InjectMocks
     DancerServiceImpl dancerService;
 
-//    @BeforeEach
-//    void setUp(){
-//        autoCloseable = MockitoAnnotations.openMocks(this);
-//        dancerService = new DancerServiceImpl(dancerRepository);
-//    }
+    @BeforeEach
+    void setUp(){
+        autoCloseable = MockitoAnnotations.openMocks(this);
+        dancerService = new DancerServiceImpl(dancerRepository);
+    }
 
     @AfterEach
     void tearDown() throws Exception{
