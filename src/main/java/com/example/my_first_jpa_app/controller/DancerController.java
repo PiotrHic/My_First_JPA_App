@@ -50,4 +50,11 @@ public class DancerController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(dancersDTO, HttpStatus.OK);
     }
+
+
+    @DeleteMapping("/{dancerID}")
+    ResponseEntity <DancerDTO> deleteDancerById(@PathVariable("dancerID") Integer dancerID) throws DancerNotFoundException {
+        Dancer deleted = dancerService.deleteDancer(dancerID);
+        return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(deleted), HttpStatus.OK);
+    }
 }
