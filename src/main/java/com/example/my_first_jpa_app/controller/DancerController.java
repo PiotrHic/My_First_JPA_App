@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/dancers")
@@ -30,5 +33,15 @@ public class DancerController {
     ResponseEntity <DancerDTO> getDancerById(@PathVariable("dancerID") Integer dancerID) {
         Dancer founded = dancerService.getDancer(dancerID);
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(founded), HttpStatus.OK);
+    }
+
+    @GetMapping
+    ResponseEntity <List<DancerDTO>> getAllDancers()  throws DancerNotFoundException {
+        List<DancerDTO> dancersDTO = dancerService
+                .getAllDancers()
+                .stream()
+                .map(dancerMapper::dancerToDancerDTO)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(dancersDTO, HttpStatus.OK);
     }
 }
