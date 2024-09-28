@@ -29,6 +29,12 @@ public class DancerController {
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(toSave), HttpStatus.valueOf(201));
     }
 
+    @PutMapping("/{dancerID}")
+    ResponseEntity <DancerDTO> updateDancerById(@PathVariable("dancerID") Integer dancerID, @RequestBody DancerDTO dancerDTO) {
+        Dancer updated = dancerService.updateDancer(dancerID, dancerMapper.dancerDTOToDancer(dancerDTO));
+        return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(updated), HttpStatus.OK);
+    }
+
     @GetMapping("/{dancerID}")
     ResponseEntity <DancerDTO> getDancerById(@PathVariable("dancerID") Integer dancerID) {
         Dancer founded = dancerService.getDancer(dancerID);
