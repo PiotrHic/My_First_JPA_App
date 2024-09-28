@@ -3,5 +3,6 @@ Scenario:
 - I use the application layers architecture
 - I connect it to a database (MySQL, H2 for testing)
 - I test the application (JUNIT5, Mockito, Testcontainers)
-- I use a JPA REpository (Spring Data JPA)
+- I use a JPA Repository (Spring Data JPA)
+- I use Open API to create documentation for API (Open API)
 - I dockerise the application (Docker)
