@@ -57,4 +57,10 @@ public class DancerController {
         Dancer deleted = dancerService.deleteDancer(dancerID);
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(deleted), HttpStatus.OK);
     }
+
+    @DeleteMapping()
+    ResponseEntity <String> deleteAllDancers(){
+        dancerService.deleteAllDancers();
+        return new ResponseEntity<>("Database is empty", HttpStatus.OK);
+    }
 }
