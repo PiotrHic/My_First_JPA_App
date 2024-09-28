@@ -152,8 +152,6 @@ public class DancerControllerTest {
         Assertions.assertEquals("BACHATA", response.jsonPath().getString("danceStyle"));
     }
 
-
-    @Disabled
     @Test
     void NotFoundUser(){
         dancerRepository.deleteAll();
@@ -224,7 +222,6 @@ public class DancerControllerTest {
         Assertions.assertEquals("[]", response2.jsonPath().getString("danceStyle"));
     }
 
-    @Disabled
     @Test
     void shouldDeleteButNotFound(){
         dancerRepository.deleteAll();
