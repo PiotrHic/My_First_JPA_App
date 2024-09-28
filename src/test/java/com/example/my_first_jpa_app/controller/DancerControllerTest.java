@@ -79,6 +79,61 @@ public class DancerControllerTest {
     }
 
     @Test
+    void updateOneDancer(){
+        dancerRepository.deleteAll();
+        Dancer createDancer = new Dancer("Michał", "BACHATA");
+
+        dancerRepository.save(createDancer);
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/api/dancers")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals("[Michał]", response.jsonPath().getString("name"));
+        Assertions.assertEquals("[BACHATA]", response.jsonPath().getString("danceStyle"));
+
+        String id = createDancer.getId().toString();
+
+        String requestBody = "{\n" +
+                "  \"id\": \"" + id + "\",\n" +
+                "  \"name\": \"Jan\",\n" +
+                "  \"danceStyle\": \"Walc\" \n}";
+
+        System.out.println(requestBody.toString());
+
+        Response response1 = given()
+                .contentType(ContentType.JSON)
+                .and()
+                .body(requestBody)
+                .when()
+                .put("/api/dancers/" + id)
+                .then()
+                .extract().response();
+
+
+        System.out.println(response1.jsonPath().prettyPrint());
+
+        Assertions.assertEquals(200, response1.statusCode());
+        Assertions.assertEquals("Jan", response1.jsonPath().getString("name"));
+        Assertions.assertEquals("Walc", response1.jsonPath().getString("danceStyle"));
+
+        Response response2 = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/api/dancers")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response2.statusCode());
+        Assertions.assertEquals("[Jan]", response2.jsonPath().getString("name"));
+        Assertions.assertEquals("[Walc]", response2.jsonPath().getString("danceStyle"));
+    }
+
+    @Test
     void shouldFindOneUser(){
         dancerRepository.deleteAll();
         Dancer saved = dancerRepository.save(new Dancer("Michał", "BACHATA"));
@@ -135,60 +190,7 @@ public class DancerControllerTest {
         Assertions.assertEquals("[BACHATA, Samba]", response.jsonPath().getString("danceStyle"));
     }
 
-    @Test
-    void updateOneDancer(){
-        dancerRepository.deleteAll();
-        Dancer createDancer = new Dancer("Michał", "BACHATA");
 
-        dancerRepository.save(createDancer);
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/api/dancers")
-                .then()
-                .extract().response();
-
-        Assertions.assertEquals(200, response.statusCode());
-        Assertions.assertEquals("[Michał]", response.jsonPath().getString("name"));
-        Assertions.assertEquals("[BACHATA]", response.jsonPath().getString("danceStyle"));
-
-        String id = createDancer.getId().toString();
-
-        String requestBody = "{\n" +
-                "  \"id\": \"" + id + "\",\n" +
-                "  \"name\": \"Jan\",\n" +
-                "  \"danceStyle\": \"Walc\" \n}";
-
-        System.out.println(requestBody.toString());
-
-        Response response1 = given()
-                .contentType(ContentType.JSON)
-                .and()
-                .body(requestBody)
-                .when()
-                .put("/api/dancers/" + id)
-                .then()
-                .extract().response();
-
-
-        System.out.println(response1.jsonPath().prettyPrint());
-
-        Assertions.assertEquals(200, response1.statusCode());
-        Assertions.assertEquals("Jan", response1.jsonPath().getString("name"));
-        Assertions.assertEquals("Walc", response1.jsonPath().getString("danceStyle"));
-
-        Response response2 = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/api/dancers")
-                .then()
-                .extract().response();
-
-        Assertions.assertEquals(200, response2.statusCode());
-        Assertions.assertEquals("[Jan]", response2.jsonPath().getString("name"));
-        Assertions.assertEquals("[Walc]", response2.jsonPath().getString("danceStyle"));
-    }
 
 
     @DisplayName("Delete By Id Test")

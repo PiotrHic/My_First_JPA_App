@@ -4,13 +4,11 @@ import com.example.my_first_jpa_app.domain.Dancer;
 import com.example.my_first_jpa_app.domain.DancerDTO;
 import com.example.my_first_jpa_app.domain.DancerMapper;
 import com.example.my_first_jpa_app.service.DancerService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -26,5 +24,11 @@ public class DancerController {
         Dancer toSave = dancerService.createDancer(dancerMapper.dancerDTOToDancer(dancerDTO));
 
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(toSave), HttpStatus.valueOf(201));
+    }
+
+    @GetMapping("/{dancerID}")
+    ResponseEntity <DancerDTO> getDancerById(@PathVariable("dancerID") Integer dancerID) {
+        Dancer founded = dancerService.getDancer(dancerID);
+        return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(founded), HttpStatus.OK);
     }
 }
