@@ -31,7 +31,6 @@ public class DancerServiceImpl implements DancerService {
     public List<Dancer> getAllDancers(){
         return dancerRepository.findAll();
     }
-
     @Override
     public Dancer updateDancer(Integer id, Dancer dancer) {
         if(!dancerRepository.existsById(id)){
