@@ -1,9 +1,12 @@
 package com.example.my_first_jpa_app.service;
 
+import com.example.my_first_jpa_app.controller.DancerController;
 import com.example.my_first_jpa_app.controller.DancerNotFoundException;
 import com.example.my_first_jpa_app.domain.Dancer;
 import com.example.my_first_jpa_app.repository.DancerRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,10 @@ import java.util.List;
 public class DancerServiceImpl implements DancerService {
 
     private final DancerRepository dancerRepository;
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(DancerController.class);
+
     @Override
     public Dancer createDancer(Dancer dancer) {
         return dancerRepository.save(dancer);
@@ -21,6 +28,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public Dancer getDancer(Integer id) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was funded in the DB : id {}", id);
             throw new DancerNotFoundException("Dancer with id: " + id + " was not found!");
         }
         return dancerRepository.getReferenceById(id);
@@ -34,6 +42,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public Dancer updateDancer(Integer id, Dancer dancer) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was funded in the DB : id {}", id);
             throw new DancerNotFoundException("Dancer with id: " + id + " was not found!");
         }
         Dancer toUpdate = dancerRepository.getReferenceById(id);
@@ -45,6 +54,7 @@ public class DancerServiceImpl implements DancerService {
     @Override
     public Dancer deleteDancer(Integer id) {
         if(!dancerRepository.existsById(id)){
+            LOGGER.info("Dancer was funded in the DB : id {}", id);
             throw new DancerNotFoundException("Dancer with id: " + id + " was not found!");
         }
         Dancer deleted = dancerRepository.getReferenceById(id);

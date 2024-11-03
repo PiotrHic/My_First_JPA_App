@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/dancers")
 public class DancerController {
 
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(DancerController.class);
+
+
     private final DancerService dancerService;
 
     private final DancerMapper dancerMapper;
@@ -33,7 +39,7 @@ public class DancerController {
     @PostMapping
     ResponseEntity<DancerDTO> createDancer(@RequestBody DancerDTO dancerDTO){
         Dancer toSave = dancerService.createDancer(dancerMapper.dancerDTOToDancer(dancerDTO));
-
+        LOGGER.info("Dancer was saved in the DB : {}", toSave.getName());
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(toSave), HttpStatus.valueOf(201));
     }
     @Operation(summary = "It updates dancer with the new data")
@@ -48,6 +54,7 @@ public class DancerController {
     @PutMapping("/{dancerID}")
     ResponseEntity <DancerDTO> updateDancerById(@PathVariable("dancerID") Integer dancerID, @RequestBody DancerDTO dancerDTO) {
         Dancer updated = dancerService.updateDancer(dancerID, dancerMapper.dancerDTOToDancer(dancerDTO));
+        LOGGER.info("Dancer was updated in the DB : {}", updated.getName());
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(updated), HttpStatus.OK);
     }
 
@@ -63,6 +70,7 @@ public class DancerController {
     @GetMapping("/{dancerID}")
     ResponseEntity <DancerDTO> getDancerById(@PathVariable("dancerID") Integer dancerID) {
         Dancer founded = dancerService.getDancer(dancerID);
+        LOGGER.info("Dancer was funded in the DB : {}", founded.getName());
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(founded), HttpStatus.OK);
     }
 
@@ -72,12 +80,13 @@ public class DancerController {
             content = {@Content(mediaType =  "application/json")})
     @GetMapping
     ResponseEntity <List<DancerDTO>> getAllDancers()  throws DancerNotFoundException {
-        List<DancerDTO> dancersDTO = dancerService
+        List<DancerDTO> dancerDTOs = dancerService
                 .getAllDancers()
                 .stream()
                 .map(dancerMapper::dancerToDancerDTO)
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(dancersDTO, HttpStatus.OK);
+        LOGGER.info("All Dancers were found: size {}", dancerDTOs.size());
+        return new ResponseEntity<>(dancerDTOs, HttpStatus.OK);
     }
 
 
@@ -93,6 +102,7 @@ public class DancerController {
     @DeleteMapping("/{dancerID}")
     ResponseEntity <DancerDTO> deleteDancerById(@PathVariable("dancerID") Integer dancerID) throws DancerNotFoundException {
         Dancer deleted = dancerService.deleteDancer(dancerID);
+        LOGGER.info("Dancer was deleted from the  DB : id {}", dancerID);
         return new ResponseEntity<>(dancerMapper.dancerToDancerDTO(deleted), HttpStatus.OK);
     }
 
@@ -103,6 +113,7 @@ public class DancerController {
     @DeleteMapping()
     ResponseEntity <String> deleteAllDancers(){
         dancerService.deleteAllDancers();
+        LOGGER.info("Dancers were deleted from the DB");
         return new ResponseEntity<>("Database is empty", HttpStatus.OK);
     }
 }

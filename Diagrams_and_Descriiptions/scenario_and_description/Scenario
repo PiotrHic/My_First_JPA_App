@@ -5,4 +5,6 @@ Scenario:
 - I test the application (JUNIT5, Mockito, Testcontainers)
 - I use a JPA Repository (Spring Data JPA)
 - I use Open API to create documentation for API (Open API)
-- I dockerise the application (Docker)
+- I dockerise the application (Docker) View build details:
+View build details: docker-desktop://dashboard/build/default/default/ssptmtxdd0jwz8cfpmyv8s8bk
+
