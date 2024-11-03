@@ -10,24 +10,25 @@ Hi! This is a simple JPA Application to practise my Spring Boot skills.
 
 
 ## Short Description
-I create a JPA Spring Boot Application, to use in real project certain knowlegde:
+I create a JPA Spring Boot Application, to use in real project certain knownledge:
 
--Database use
+-Database use (MySQL, H2)
 
 -Spring Boot Architecture (Layers)
 
 -REST API
 
--Testing
+-Testing (TestContainers, JUNIT5 , Mockito)
 
 -JPA
 
--Containerisation 
+-Containerisation (Docker)
 
--Some may be add
+-API Documentation (OPEN API)
 
 
 
 ## Technologies
- - MySQL, H2, Testcontainers, Mocikto, JUNIT5, Spring Data JPA, Lombok, Docker
+ - MySQL, H2, Testcontainers, Mockito, JUNIT5, Spring Data JPA, Lombok, Docker,
+  OPEN API, REST API
 
